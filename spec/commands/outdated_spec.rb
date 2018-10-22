@@ -71,6 +71,24 @@ RSpec.describe "bundle outdated" do
     end
   end
 
+  describe "with --gemfile option" do
+    it "returns a sorted list of outdated gems" do
+      update_repo2 do
+        build_gem "weakling", "0.2"
+      end
+
+      create_file "CustomGemfile", <<-G
+        source "file://localhost#{gem_repo2}"
+
+        gem "weakling", "~> 0.0.1"
+      G
+
+      bundle "outdated --gemfile=CustomGemfile"
+
+      expect(out).to include("weakling (newest 0.2, installed 0.0.3, requested ~> 0.0.1)")
+    end
+  end
+
   describe "with --group option" do
     def test_group_option(group = nil, gems_list_size = 1)
       install_gemfile <<-G

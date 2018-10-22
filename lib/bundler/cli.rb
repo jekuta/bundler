@@ -405,6 +405,8 @@ module Bundler
       "Use minimal formatting for more parseable output"
     method_option "only-explicit", :type => :boolean, :banner =>
       "Only list gems specified in your Gemfile, not their dependencies"
+    method_option "gemfile", :type => :string, :banner =>
+      "Use the specified gemfile instead of Gemfile"
     def outdated(*gems)
       require "bundler/cli/outdated"
       Outdated.new(options, gems).run
