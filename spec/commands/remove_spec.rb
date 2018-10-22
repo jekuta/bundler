@@ -24,7 +24,21 @@ RSpec.describe "bundle remove" do
       bundle! "remove rack --install"
 
       expect(out).to include("rack was removed.")
-      expect(the_bundle).to_not include_gems "rack"
+    end
+  end
+
+  context "when --gemfile flag is specified" do
+    it "removes gems from .bundle" do
+      create_file "CustomGemfile", <<-G
+        source "file://localhost#{gem_repo1}"
+
+        gem "rack"
+      G
+
+      bundle! "remove rack --gemfile CustomGemfile"
+
+      expect(out).to include("rack was removed.")
+      expect(bundled_app("CustomGemfile").read).not_to include %(gem "rack")
     end
   end
 

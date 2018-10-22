@@ -3,7 +3,7 @@ bundle-remove(1) -- Removes gems from the Gemfile
 
 ## SYNOPSIS
 
-`bundle remove [GEM [GEM ...]] [--install]`
+`bundle remove [GEM [GEM ...]] [--install] [--gemfile=GEMFILE]`
 
 ## DESCRIPTION
 
@@ -13,6 +13,9 @@ Removes the given gems from the Gemfile while ensuring that the resulting Gemfil
 
 * `--install`:
   Runs `bundle install` after the given gems have been removed from the Gemfile, which ensures that both the lockfile and the installed gems on disk are also updated to remove the given gem(s).
+
+* `--gemfile`:
+  Use the specified gemfile instead of the [`Gemfile(5)`][Gemfile(5)].
 
 Example:
 
