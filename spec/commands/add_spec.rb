@@ -214,4 +214,18 @@ RSpec.describe "bundle add" do
       expect(out).not_to include("You may also need to change the version requirement specified in the Gemfile if it's too restrictive")
     end
   end
+
+  describe "with --gemfile" do
+    it "adds dependency of specified version and runs install" do
+      create_file "CustomGemfile", <<-G
+        source "file://localhost#{gem_repo1}"
+
+        gem "rack"
+      G
+
+      bundle "add 'foo' --gemfile=CustomGemfile"
+
+      expect(bundled_app("CustomGemfile").read).to include %(gem "foo")
+    end
+  end
 end
